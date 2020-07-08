@@ -46,3 +46,7 @@ def delete_contact(request, pk):
 
     return render(request, "contacts/delete_contact.html",
                   {"contact": contact})
+
+def list_notes(request):
+  notes = notes.objects.all()
+  return render(request,"contacts/list_contacts.html",{"contacts": contacts})
