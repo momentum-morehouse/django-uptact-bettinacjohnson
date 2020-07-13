@@ -47,6 +47,30 @@ def delete_contact(request, pk):
     return render(request, "contacts/delete_contact.html",
                   {"contact": contact})
 
-def list_notes(request):
-  notes = notes.objects.filter()
-  return render(request,"contacts/list_contacts.html",{"contacts": contacts})
+# def list_notes(request):
+#   notes = notes.objects.filter()
+#   return render(request,"contacts/list_contacts.html",{"contacts": contacts})
+def post_note(request,pk):
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            new_note = form.save(commit=False)
+            new_note.contact_id = pk 
+            new_note.save()
+            return redirect(to='contact_view',pk=pk)
+    else:
+        form = NoteForm()
+    return render(request,  'contacts/notes.html' , {'form': form})
+
+
+def post_note(request,pk):
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            new_note = form.save(commit=False)
+            new_note.contact_id = pk 
+            new_note.save()
+            return redirect(to='contact_view',pk=pk)
+    else:
+        form = NoteForm()
+    return render(request,  'contacts/notes.html' , {'form': form})
